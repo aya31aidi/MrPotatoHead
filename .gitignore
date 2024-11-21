@@ -1,0 +1,31 @@
+# Compiled Java class files
+*.class
+
+# Log files
+*.log
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# IDE-specific files (e.g., Eclipse, IntelliJ IDEA)
+*.iml
+*.idea/
+*.classpath
+*.project
+.settings/
+.vscode/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Build directories
+bin/
+out/
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
