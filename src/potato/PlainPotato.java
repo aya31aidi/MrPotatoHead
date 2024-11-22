@@ -12,12 +12,12 @@ public class PlainPotato extends PotatoComponent {
 
     @Override
     public double getCost() {
-        return 5.00; // Prix de base
+        return 5.00; // Base price
     }
 
     @Override
     public void draw(Graphics g) {
-        // Afficher l'image du corps
+        // Display the body image
         ImageIcon body = new ImageIcon(imageBasePath + "body.png");
         g.drawImage(body.getImage(), 100, 100, null);
     }

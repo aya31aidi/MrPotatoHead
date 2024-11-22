@@ -8,14 +8,14 @@ public class ArmsDecorator extends PotatoDecorator {
 
     public ArmsDecorator(PotatoComponent potato, int i) {
         super(potato);
-        this.armIndex = i;  // Image des bras
+        this.armIndex = i;  // Image of the arms
     }
 
     @Override
     public void draw(Graphics g) {
-        potato.draw(g); // Dessiner la pomme de terre de base
+        potato.draw(g); // Draw the base potato
         ImageIcon arms = new ImageIcon(imageBasePath + "arms" + armIndex + ".png");
-        g.drawImage(arms.getImage(), 100, 300, null); // Positionner les bras
+        g.drawImage(arms.getImage(), 100, 300, null); // Position the arms
     }
 
     @Override
@@ -25,13 +25,14 @@ public class ArmsDecorator extends PotatoDecorator {
 
     @Override
     public double getCost() {
-        return potato.getCost() + 3.00;  // Coût des bras
+        return potato.getCost() + 3.00;  // Cost of the arms
     }
+
     @Override
     public PotatoComponent removeDecorator(PotatoComponent decorator) {
         if (this == decorator) {
-            return potato;  // Retirer les bras et retourner l'objet de base
+            return potato;  // Remove the arms and return the base object
         }
-        return super.removeDecorator(decorator); // Appel récursif à la méthode parent
+        return super.removeDecorator(decorator); // Recursive call to the parent method
     }
 }

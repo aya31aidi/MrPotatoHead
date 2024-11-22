@@ -18,21 +18,21 @@ public class FeetDecorator extends PotatoDecorator {
 
     @Override
     public double getCost() {
-        return potato.getCost() + 1.50; // Prix des pieds
+        return potato.getCost() + 1.50; // Cost of feet
     }
 
     @Override
     public void draw(Graphics g) {
-        potato.draw(g);
+        potato.draw(g); // Draw the base potato
         ImageIcon feet = new ImageIcon(imageBasePath + "feet" + feetIndex + ".png");
-        g.drawImage(feet.getImage(), 100, 400, null); // Ajuster la position selon le design
+        g.drawImage(feet.getImage(), 100, 400, null); // Adjust the position according to the design
     }
 
     @Override
     public PotatoComponent removeDecorator(PotatoComponent decorator) {
         if (this == decorator) {
-            return potato;  // Retirer les pieds et retourner l'objet de base
+            return potato;  // Remove the feet and return the base object
         }
-        return super.removeDecorator(decorator); // Appel récursif
+        return super.removeDecorator(decorator); // Recursive call
     }
 }

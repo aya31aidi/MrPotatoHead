@@ -1,45 +1,47 @@
 package potato;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class PotatoApp extends JFrame {
     private PotatoComponent potato;
     private PotatoStateManager stateManager;
-
-    // Indices pour les bras, accessoires, expressions
-    private int armsIndex = 1;  // Par défaut, on commence avec le bras 1
-    private int accessoryIndex = 1; // Par défaut, on commence avec l'accessoire 1
-    private int expressionIndex = 1; // Par défaut, on commence avec l'expression 1
+    private JLabel totalCostLabel; // Label to display total cost
+    
+    // Indices for arms, accessories, expressions
+    private int armsIndex = 1;  // Default to arm 1
+    private int accessoryIndex = 1; // Default to accessory 1
+    private int expressionIndex = 1; // Default to expression 1
     private int mouthIndex = 1; // Default to mouth 1
     private int feetIndex = 1;  // Default to feet 1
 
- // Initializing decorator tracking variables
+    // Initializing decorator tracking variables
     private ExpressionsDecorator expressionsDecorator = null;
     private AccessoryDecorator accessoryDecorator = null;
     private ArmsDecorator armsDecorator = null;
     private MouthDecorator mouthDecorator = null;
     private FeetDecorator feetDecorator = null;
 
-
     public PotatoApp() {
-        potato = new PlainPotato(); // Corps de base
-        stateManager = new PotatoStateManager(potato);  // Gestionnaire d'état
-        stateManager.saveState(potato); // Sauvegarder l'état initial
+        potato = new PlainPotato(); // Base body
+        stateManager = new PotatoStateManager(potato);  // State manager
+        stateManager.saveState(potato); // Save initial state
 
-        // Interface
-        setLayout(new BorderLayout()); // Utiliser BorderLayout pour la fenêtre principale
+        // Interface setup
+        setLayout(new BorderLayout()); // Use BorderLayout for the main window
 
-        // Panneau pour les boutons
-        JPanel buttonsPanel = new JPanel(new GridLayout(2, 4, 10, 10)); // 2 lignes, 4 colonnes
+        // Panel for buttons
+        JPanel buttonsPanel = new JPanel(new GridLayout(2, 4, 10, 10)); // 2 rows, 4 columns
 
-        // Bouton pour changer les yeux (expression)
+        // Button to change expression (eyes)
         JButton changeExpressionButton = new JButton("Change Expression");
         changeExpressionButton.addActionListener(e -> {
             if (expressionsDecorator != null) {
@@ -53,7 +55,7 @@ public class PotatoApp extends JFrame {
             repaint();
         });
 
-        // Bouton pour changer d'accessoire
+        // Button to change accessory
         JButton changeAccessoryButton = new JButton("Change Accessory");
         changeAccessoryButton.addActionListener(e -> {
             if (accessoryDecorator != null) {
@@ -67,7 +69,7 @@ public class PotatoApp extends JFrame {
             repaint();
         });
 
-        // Bouton pour changer les bras
+        // Button to change arms
         JButton changeArmsButton = new JButton("Change Arms");
         changeArmsButton.addActionListener(e -> {
             if (armsDecorator != null) {
@@ -81,7 +83,7 @@ public class PotatoApp extends JFrame {
             repaint();
         });
 
-        // Bouton pour changer la bouche
+        // Button to change mouth
         JButton changeMouthButton = new JButton("Change Mouth");
         changeMouthButton.addActionListener(e -> {
             if (mouthDecorator != null) {
@@ -95,7 +97,7 @@ public class PotatoApp extends JFrame {
             repaint();
         });
 
-        // Bouton pour changer les pieds
+        // Button to change feet
         JButton changeFeetButton = new JButton("Change Feet");
         changeFeetButton.addActionListener(e -> {
             if (feetDecorator != null) {
@@ -109,7 +111,7 @@ public class PotatoApp extends JFrame {
             repaint();
         });
 
-        // Bouton "Previous" avec image
+        // Button "Previous" with image
         ImageIcon previousIcon = new ImageIcon(potato.imageBasePath + "previous.png");
         JButton previousButton = new JButton(previousIcon);
         previousButton.addActionListener(e -> {
@@ -117,7 +119,7 @@ public class PotatoApp extends JFrame {
             repaint();
         });
 
-        // Bouton "Next" avec image
+        // Button "Next" with image
         ImageIcon nextIcon = new ImageIcon(potato.imageBasePath + "next.png");
         JButton nextButton = new JButton(nextIcon);
         nextButton.addActionListener(e -> {
@@ -127,7 +129,7 @@ public class PotatoApp extends JFrame {
             }
         });
 
-        // Ajouter les boutons au panneau
+        // Add buttons to the panel
         buttonsPanel.add(changeExpressionButton);
         buttonsPanel.add(changeAccessoryButton);
         buttonsPanel.add(changeArmsButton);
@@ -136,21 +138,37 @@ public class PotatoApp extends JFrame {
         buttonsPanel.add(previousButton);
         buttonsPanel.add(nextButton);
 
-        // Ajouter le panneau des boutons au bas de la fenêtre
+        // Add button panel to the bottom of the window
         add(buttonsPanel, BorderLayout.SOUTH);
 
-        setSize(800, 600); // Ajuster la taille de la fenêtre
+        setSize(600, 600); // Set window size
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    private void updateTotalCost() {
+        int totalCost = 0;
+        PotatoComponent current = potato;
+
+        // Traverse through all decorators and sum their costs
+        while (current instanceof PotatoDecorator) {
+            PotatoDecorator decorator = (PotatoDecorator) current;
+            totalCost += decorator.getCost();
+            current = decorator.getWrapped();
+        }
+
+        totalCostLabel.setText("Total Cost: $" + totalCost);
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        potato.draw(g); // Dessiner la pomme de terre au centre
+        potato.draw(g); // Draw the potato at the center
+        // Set font size and style for cost display
+        g.setFont(new Font("Arial", Font.BOLD, 24)); // Change "24" to adjust size
+        g.drawString("Total Cost: $" + potato.getCost(), 200, 50); // Adjust position
     }
 
     public static void main(String[] args) {
         new PotatoApp().setVisible(true);
     }
-
 }

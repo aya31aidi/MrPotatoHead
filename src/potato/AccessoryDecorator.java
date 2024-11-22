@@ -19,21 +19,22 @@ public class AccessoryDecorator extends PotatoDecorator {
 
     @Override
     public double getCost() {
-        return potato.getCost() + 1.50; // Prix de chaque accessoire
+        return potato.getCost() + 1.50; // Price of each accessory
     }
 
     @Override
     public void draw(Graphics g) {
-        potato.draw(g); // Dessiner les éléments précédents
-        // Ajouter l'image de l'accessoire
+        potato.draw(g); // Draw previous elements
+        // Add the image of the accessory
         ImageIcon accessory = new ImageIcon(imageBasePath + "accesory" + accessoryIndex + ".png");
-        g.drawImage(accessory.getImage(), 100, 100, null); // Modifier les coordonnées
+        g.drawImage(accessory.getImage(), 100, 100, null); // Adjust coordinates
     }
+
     @Override
     public PotatoComponent removeDecorator(PotatoComponent decorator) {
         if (this == decorator) {
-            return potato;  // Retirer l'accessoire et retourner l'objet de base
+            return potato;  // Remove the accessory and return the base object
         }
-        return super.removeDecorator(decorator); // Appel récursif à la méthode parent
+        return super.removeDecorator(decorator); // Recursive call to the parent method
     }
 }

@@ -19,21 +19,21 @@ public class ExpressionsDecorator extends PotatoDecorator {
 
     @Override
     public double getCost() {
-        return potato.getCost() + 1.00; // Prix des expressions
+        return potato.getCost() + 1.00; // Cost of expressions
     }
 
     @Override
     public void draw(Graphics g) {
-        potato.draw(g);
+        potato.draw(g); // Draw the base potato
         ImageIcon expressions = new ImageIcon(imageBasePath + "expression" + expressionsIndex + ".png");
-        g.drawImage(expressions.getImage(), 100, 175, null); // Modifier selon la position des yeux
+        g.drawImage(expressions.getImage(), 100, 175, null); // Adjust the position for the eyes
     }
+
     @Override
     public PotatoComponent removeDecorator(PotatoComponent decorator) {
         if (this == decorator) {
-            return potato;  // Retirer l'expression et retourner l'objet de base
+            return potato;  // Remove the expression and return the base object
         }
-        return super.removeDecorator(decorator); // Appel récursif à la méthode parent
+        return super.removeDecorator(decorator); // Recursive call to the parent method
     }
 }
-

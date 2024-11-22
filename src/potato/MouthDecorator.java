@@ -18,21 +18,21 @@ public class MouthDecorator extends PotatoDecorator {
 
     @Override
     public double getCost() {
-        return potato.getCost() + 1.00; // Prix de la bouche
+        return potato.getCost() + 1.00; // Cost of the mouth
     }
 
     @Override
     public void draw(Graphics g) {
-        potato.draw(g);
+        potato.draw(g); // Draw the base potato
         ImageIcon mouth = new ImageIcon(imageBasePath + "mouth" + mouthIndex + ".png");
-        g.drawImage(mouth.getImage(), 100, 270, null); // Ajuster la position selon le design
+        g.drawImage(mouth.getImage(), 100, 270, null); // Adjust the position according to the design
     }
 
     @Override
     public PotatoComponent removeDecorator(PotatoComponent decorator) {
         if (this == decorator) {
-            return potato;  // Retirer la bouche et retourner l'objet de base
+            return potato;  // Remove the mouth and return the base object
         }
-        return super.removeDecorator(decorator); // Appel récursif
+        return super.removeDecorator(decorator); // Recursive call
     }
 }

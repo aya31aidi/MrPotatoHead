@@ -24,6 +24,7 @@ A fun and interactive application to create and customize your very own Mr. Pota
    ```bash  
    git clone https://github.com/aya31aidi/MrPotatoHead.git  
    ```  
+---
 
 ### 2. **Open Eclipse IDE**  
 1. Launch Eclipse and go to **File > Open Projects from File System**.
